@@ -3,7 +3,7 @@
 Plugin Name: POST Action Logger
 Plugin URI: https://josemortellaro.com
 Description: Logs all $_POST actions and displays them on a dedicated backend page.
-Version: 1.0.0
+Version: 1.0.1
 Author: Jose Mortellaro
 Author URI: https://example.com
 License: GPL2
@@ -26,7 +26,7 @@ class Post_Action_Logger {
 	 *
 	 * @var string $table_name Table name
 	 * @since  1.0.0
-	 */	
+	 */
     private $table_name;
 
 	/**
@@ -34,7 +34,7 @@ class Post_Action_Logger {
 	 *
 	 * @var bool $is_logging Is logging
 	 * @since  1.0.0
-	 */	
+	 */
     private $is_logging;
 
     /**
@@ -42,7 +42,7 @@ class Post_Action_Logger {
 	 *
 	 * @var int $current_user_id Current user ID
 	 * @since  1.0.0
-	 */	
+	 */
     private $current_user_id;
 
     /*
@@ -162,10 +162,10 @@ class Post_Action_Logger {
     */
     public function clear_table() {
 
-        if 
-            (current_user_can('manage_options') 
+        if
+            (current_user_can('manage_options')
             && check_admin_referer('post_action_logger_clear_table')
-        ) {     
+        ) {
             global $wpdb;
             $table_name = $this->table_name;
             $table_exists = $wpdb->get_var("SHOW TABLES LIKE '$table_name'");
@@ -175,7 +175,7 @@ class Post_Action_Logger {
             }
             wp_safe_redirect( esc_url( admin_url('admin.php?page=post-action-logs') ) );
             die();
-            exit; 
+            exit;
         }
     }
 
@@ -291,7 +291,7 @@ class Post_Action_Logger {
     *
     */
     public function toggle_logging() {
-        if (current_user_can('manage_options') 
+        if (current_user_can('manage_options')
             && check_admin_referer('post_action_logger_toggle_logging')
         ) {
             $is_logging = get_user_meta($this->current_user_id, 'post_action_logging_enabled', true);
