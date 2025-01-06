@@ -3,8 +3,8 @@ Contributors: Jose Mortellaro
 Plugin URI: https://github.com/your-username/post-actions-logger
 Tags: logging, $_POST, backend, debug, actions
 Requires at least: 5.0
-Tested up to: 6.0
-Stable tag: 1.0.0
+Tested up to: 6.7
+Stable tag: 1.0.1
 License: GPL-2.0+
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -46,6 +46,9 @@ To stop logging the `$_POST` actions, simply go back to the settings page and cl
 This plugin is designed primarily for debugging and development purposes. It's not recommended to keep logging enabled on production websites as it can store sensitive data. Please ensure to turn off logging when not in use.
 
 == Changelog ==
+
+= 1.0.1 =
+* Added: updates management from GitHub.
 
 = 1.0.0 =
 * Initial release.

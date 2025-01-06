@@ -11,6 +11,8 @@ License: GPL2
 
 defined('ABSPATH') || exit; // Exit if accessed directly.
 define( 'POST_ACTIONS_LOGGER_PLUGIN_DIR', untrailingslashit( dirname( __FILE__ ) ) );
+define( 'POST_ACTIONS_LOGGER_PLUGIN_FILENAME', untrailingslashit( plugin_basename( __FILE__ ) ) );
+define( 'POST_ACTIONS_LOGGER_VERSION', '1.0.1' );
 
 /**
  * Class Post Action Logger
@@ -26,7 +28,7 @@ class Post_Action_Logger {
 	 *
 	 * @var string $table_name Table name
 	 * @since  1.0.0
-	 */
+	 */	
     private $table_name;
 
 	/**
@@ -34,7 +36,7 @@ class Post_Action_Logger {
 	 *
 	 * @var bool $is_logging Is logging
 	 * @since  1.0.0
-	 */
+	 */	
     private $is_logging;
 
     /**
@@ -42,7 +44,7 @@ class Post_Action_Logger {
 	 *
 	 * @var int $current_user_id Current user ID
 	 * @since  1.0.0
-	 */
+	 */	
     private $current_user_id;
 
     /*
@@ -66,15 +68,7 @@ class Post_Action_Logger {
         add_action('admin_post_toggle_logging', [$this, 'toggle_logging']);
         add_action('admin_post_clear_table', [$this, 'clear_table']);
         add_action('plugins_loaded', [$this, 'load_textdomain']);
-        if( is_admin() ) {
-            require_once POST_ACTIONS_LOGGER_PLUGIN_DIR . '/admin/class-post-actions-logger-plugin-updater.php';
-            $github_updater = new Post_Actions_Logger_GitHub_Plugin_Updater(
-                'post-actions-logger', // Plugin slug
-                'JoseMortellaro', // GIT username
-                'Post Actions Logger', // Plugin name
-                'Jose Mortellaro'); // Author name
-
-        }
+        add_action('admin_init', [$this, 'manage_updates']);
     }
 
     /*
@@ -162,10 +156,10 @@ class Post_Action_Logger {
     */
     public function clear_table() {
 
-        if
-            (current_user_can('manage_options')
+        if 
+            (current_user_can('manage_options') 
             && check_admin_referer('post_action_logger_clear_table')
-        ) {
+        ) {     
             global $wpdb;
             $table_name = $this->table_name;
             $table_exists = $wpdb->get_var("SHOW TABLES LIKE '$table_name'");
@@ -175,7 +169,7 @@ class Post_Action_Logger {
             }
             wp_safe_redirect( esc_url( admin_url('admin.php?page=post-action-logs') ) );
             die();
-            exit;
+            exit; 
         }
     }
 
@@ -291,7 +285,7 @@ class Post_Action_Logger {
     *
     */
     public function toggle_logging() {
-        if (current_user_can('manage_options')
+        if (current_user_can('manage_options') 
             && check_admin_referer('post_action_logger_toggle_logging')
         ) {
             $is_logging = get_user_meta($this->current_user_id, 'post_action_logging_enabled', true);
@@ -301,6 +295,23 @@ class Post_Action_Logger {
         wp_safe_redirect( esc_url( admin_url('admin.php?page=post-action-logs') ) );
         die();
         exit;
+    }
+
+    /*
+    *
+    * Manage updates.
+    *
+    */
+    public function manage_updates() {
+        require_once POST_ACTIONS_LOGGER_PLUGIN_DIR . '/admin/class-post-actions-logger-plugin-updater.php';
+        $github_updater = new Post_Actions_Logger_GitHub_Plugin_Updater(
+            'post-actions-logger', // Plugin slug
+            POST_ACTIONS_LOGGER_VERSION, // Current version
+            POST_ACTIONS_LOGGER_PLUGIN_FILENAME, // Plugin file name
+            'JoseMortellaro/post-actions-logger', // GIT username
+            'Post Actions Logger', // Plugin name
+            'Jose Mortellaro' // Author name
+        );
     }
 }
 
