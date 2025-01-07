@@ -12,7 +12,7 @@ License: GPL2
 defined('ABSPATH') || exit; // Exit if accessed directly.
 define( 'POST_ACTIONS_LOGGER_PLUGIN_DIR', untrailingslashit( dirname( __FILE__ ) ) );
 define( 'POST_ACTIONS_LOGGER_PLUGIN_FILENAME', untrailingslashit( plugin_basename( __FILE__ ) ) );
-define( 'POST_ACTIONS_LOGGER_VERSION', '1.0.0' );
+define( 'POST_ACTIONS_LOGGER_VERSION', '1.0.1' );
 
 /**
  * Class Post Action Logger
@@ -310,6 +310,7 @@ class Post_Action_Logger {
                 'owner'	=> 'JoseMortellaro',
                 'repo'	=> 'post-actions-logger',
                 'slug'	=> POST_ACTIONS_LOGGER_PLUGIN_FILENAME,
+                'current_version' => POST_ACTIONS_LOGGER_VERSION
             )
         );
     }
