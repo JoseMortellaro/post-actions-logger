@@ -12,7 +12,7 @@ License: GPL2
 defined('ABSPATH') || exit; // Exit if accessed directly.
 define( 'POST_ACTIONS_LOGGER_PLUGIN_DIR', untrailingslashit( dirname( __FILE__ ) ) );
 define( 'POST_ACTIONS_LOGGER_PLUGIN_FILENAME', untrailingslashit( plugin_basename( __FILE__ ) ) );
-define( 'POST_ACTIONS_LOGGER_VERSION', '1.0.1' );
+define( 'POST_ACTIONS_LOGGER_VERSION', '1.0.0' );
 
 /**
  * Class Post Action Logger
@@ -304,13 +304,13 @@ class Post_Action_Logger {
     */
     public function manage_updates() {
         require_once POST_ACTIONS_LOGGER_PLUGIN_DIR . '/admin/class-post-actions-logger-plugin-updater.php';
+
         $github_updater = new Post_Actions_Logger_GitHub_Plugin_Updater(
-            'post-actions-logger', // Plugin slug
-            POST_ACTIONS_LOGGER_VERSION, // Current version
-            POST_ACTIONS_LOGGER_PLUGIN_FILENAME, // Plugin file name
-            'JoseMortellaro/post-actions-logger', // GIT username
-            'Post Actions Logger', // Plugin name
-            'Jose Mortellaro' // Author name
+            array(
+                'owner'	=> 'JoseMortellaro',
+                'repo'	=> 'post-actions-logger',
+                'slug'	=> POST_ACTIONS_LOGGER_PLUGIN_FILENAME,
+            )
         );
     }
 }
